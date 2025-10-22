@@ -1,0 +1,188 @@
+# Personal Planner Cursor Rules
+# AI-powered personal planning system using markdown files and Cursor's intelligence
+
+## System Overview
+This is a personal planning system where:
+- All data is stored as markdown files in this private repo
+- Cursor AI acts as the intelligent agent
+- Memory is maintained through organized markdown files
+- Learning happens by reading and updating these files over time
+
+## Core Architecture
+
+This system has **two main commands** and **modular focus areas**:
+
+### Commands
+Commands are defined in `.cursor/commands/` directory:
+1. **`/daily-update`** - User logs what they did today
+2. **`/daily-briefing`** - AI generates morning briefing
+3. **`/create-focus-area`** - Helper to create new focus areas
+
+When user types a command, read the corresponding file in `.cursor/commands/` and follow its instructions.
+
+### Focus Areas (Modular Plugins)
+Each focus area is a self-contained module in `/focus-areas/[name]/`:
+- `instructions.md` - Tells AI how to process updates and generate briefings
+- `memory/` or data files - Stores information specific to this focus area
+- Can organize data however makes sense (by sprint, quarter, project, etc.)
+
+## File Structure
+```
+.cursor/commands/
+  ├── daily-update.md            # /daily-update command definition
+  ├── daily-briefing.md          # /daily-briefing command definition
+  └── create-focus-area.md       # /create-focus-area helper command
+
+/daily-logs/
+  └── YYYY-MM-DD.md              # What you did each day
+
+/focus-areas/
+  ├── README.md                  # How to create focus areas
+  ├── [focus-area-1]/
+  │   ├── instructions.md        # How to process this focus area
+  │   └── [data files]           # However you want to organize
+  │
+  ├── [focus-area-2]/
+  │   ├── instructions.md
+  │   └── [data files]
+  │
+  └── [focus-area-n]/            # Add as many as you want!
+      ├── instructions.md
+      └── [data files]
+
+```
+
+## How Commands Work
+
+### When User Types a Command
+
+**Example: `/daily-update`**
+
+1. **Read** `.cursor/commands/daily-update.md`
+2. **Follow** the instructions in that file
+3. **Interact** with focus areas as specified
+
+**Example: `/daily-briefing`**
+
+1. **Read** `.cursor/commands/daily-briefing.md`
+2. **Follow** the instructions in that file
+3. **Interact** with focus areas as specified
+
+**Example: `/create-focus-area`**
+
+1. **Read** `.cursor/commands/create-focus-area.md`
+2. **Follow** the instructions in that file
+3. **Create** new focus area following `/focus-areas/README.md` template
+
+See command files in `.cursor/commands/` for detailed behavior.
+
+## Focus Area Instructions Format
+
+Each `focus-areas/[name]/instructions.md` should contain:
+
+```markdown
+# [Focus Area Name] - Instructions for AI
+
+## Purpose
+[What this focus area tracks/manages]
+
+## Processing Daily Update
+When processing a daily update for this focus area:
+1. [Step 1 - what to look for]
+2. [Step 2 - where to store it]
+3. [Step 3 - how to organize it]
+4. [What patterns to learn]
+
+## Data Organization
+- [How data is structured]
+- [What files/folders to use]
+- [How to organize (by sprint, quarter, project, etc.)]
+
+## Generating Daily Briefing
+When generating morning briefing for this focus area:
+1. [What data to read]
+2. [What to calculate/analyze]
+3. [What to present to user]
+4. [Format for output]
+
+## MCP Integrations (if applicable)
+- [Which MCP servers to use]
+- [What data to fetch]
+- [How to integrate external data]
+
+## Memory & Learning
+- [What patterns to track]
+- [How confidence/learning works]
+- [When to update patterns]
+```
+
+## Creating New Focus Areas
+
+To add a new focus area:
+
+1. Create `/focus-areas/[new-focus-area]/`
+2. Write `instructions.md` explaining:
+   - What it tracks
+   - How to process daily updates
+   - How to generate briefings
+   - Data organization structure
+3. That's it! The AI will automatically include it in `/daily-update` and `/daily-briefing`
+
+See `/focus-areas/README.md` for detailed guidance on creating focus areas.
+
+## MCP Integration (Optional)
+
+If Google Workspace MCP server is available, use it to enhance capabilities:
+
+**Available Services:**
+- **Gmail**: Read emails, search, get message content
+- **Google Calendar**: Fetch events, check availability, get meeting details
+- **Google Docs**: Read document content, get meeting notes
+- **Google Sheets**: Read spreadsheet data
+- **Google Slides**: Get presentation information
+- **Google Drive**: Search files, get file content
+
+**When to Use:**
+- Focus areas may specify MCP usage in their `instructions.md`
+- Commands may use MCP to gather context (emails, calendar, docs)
+- Always gracefully handle when MCP is not available
+
+**Example MCP Usage:**
+```python
+# Check if available, then use
+events = mcp_google_workspace_get_events(user_google_email="user@example.com")
+emails = mcp_google_workspace_search_gmail_messages(query="is:unread", user_google_email="user@example.com")
+```
+
+## AI Behavior Guidelines
+
+When processing commands:
+
+1. **Read instructions.md** for each focus area first
+2. **Follow instructions exactly** as specified
+3. **Use MCP when specified** - Check focus area instructions for MCP integrations
+4. **Maintain each focus area's data structure** as defined
+5. **Be consistent** with how each focus area organizes data
+6. **Learn patterns** as instructed by each focus area
+7. **Be proactive** - suggest connections and insights
+8. **Preserve all data** - never delete, archive if needed
+9. **Adapt to user's style** over time
+10. **Degrade gracefully** - Work without MCP if unavailable
+
+## The Beauty of This System
+
+- **Simple**: Only 2 commands to remember
+- **Modular**: Each focus area is independent
+- **Extensible**: Add new focus areas anytime
+- **Flexible**: Each area organizes data how it needs to
+- **Private**: All data stays in your repo
+- **Smart**: AI learns from daily updates
+- **Effortless**: Just describe your day, AI does the rest
+
+## Remember
+
+- This is YOUR system - customize focus areas to your needs
+- Add/remove focus areas as priorities change
+- Each focus area can have its own memory, structure, and logic
+- The AI reads instructions and follows them - update instructions to change behavior
+- Daily consistency = better insights and smarter AI

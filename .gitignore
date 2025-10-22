@@ -1,0 +1,57 @@
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# Credentials (if you add any credential files)
+credentials/
+*.json.backup
+*token*.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+.tmp
+
+# Daily logs - keep folder and README, ignore all log files
+daily-logs/*
+!daily-logs/README.md
+
+# Focus areas - ignore all data files, only track structure
+# This keeps instructions.md and README.md but ignores all personal data
+focus-areas/**/*
+!focus-areas/
+!focus-areas/*/
+!focus-areas/**/
+!focus-areas/**/instructions.md
+!focus-areas/**/README.md
+
+# Backup files
+*.backup
+*.bak
